@@ -98,13 +98,21 @@ const Header = () => {
     closeMenu();
   };
 
+  const scrollToTop = (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`} data-aos="fade-down">
-      <div className="logo">
+      <a href="#" onClick={scrollToTop} className="logo">
         <span className={`logo-text ${isTypingDone ? 'typed' : ''}`}>
           {'FFR'}
         </span>
-      </div>
+      </a>
       
       <div className="mobile-nav">
         <button 

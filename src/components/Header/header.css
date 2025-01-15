@@ -325,6 +325,15 @@ nav a:hover {
   background: transparent;
 }
 
+.logo {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logo:active .logo-text {
+  transform: scale(0.95);
+}
+
 @media (max-width: 768px) {
   .header {
     padding: 1rem 4%;
