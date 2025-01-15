@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './skills.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faServer, faPalette, faTools, faBrain } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faServer, faTools } from '@fortawesome/free-solid-svg-icons';
 
 const Skills = () => {
   const [visibleSkills, setVisibleSkills] = useState([]);
   
-  const skillsData = {
+  const skillsData = useMemo(() => ({
     'Frontend Development': {
       icon: faCode,
       skills: [
@@ -32,7 +32,7 @@ const Skills = () => {
         { name: 'VS Code', level: 85, color: '#007acc' },
       ]
     }
-  };
+  }), []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -42,7 +42,7 @@ const Skills = () => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [skillsData]);  // Added skillsData to dependency array
 
   return (
     <div className="skills-container" data-aos="fade-up">

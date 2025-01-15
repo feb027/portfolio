@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './project.css';
 
 const Projects = () => {
-  const [filter, setFilter] = useState('all');
   
   const projects = [
     {
