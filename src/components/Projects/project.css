@@ -1,0 +1,276 @@
+.projects {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+section.projects {
+  padding: 1px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.terminal-header {
+  background: #2d2d2d;
+  padding: 0.8rem;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  align-items: center;
+
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+  margin-right: 1rem;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.close { background: #ff5f56; }
+.minimize { background: #ffbd2e; }
+.maximize { background: #27c93f; }
+
+.terminal-title {
+  color: var(--cyan);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+}
+
+.terminal-body {
+  background: rgba(18, 18, 18, 0.95);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.command-line {
+  margin-bottom: 2rem;
+  font-family: 'Fira Code', monospace;
+  color: #e6f1ff;
+}
+
+.prompt {
+  color: var(--cyan);
+  margin-right: 1rem;
+}
+
+.command {
+  color: #e6f1ff;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, 
+    rgba(100, 255, 218, 0.05) 0%,
+    rgba(100, 255, 218, 0) 100%);
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .projects {
+    padding: 1rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.project-card {
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.project-card::before {
+  content: '<project>';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: 'Fira Code', monospace;
+  color: rgba(100, 255, 218, 0.3);
+  font-size: 0.8rem;
+  transition: all 0.4s ease;
+  opacity: 0.3;
+}
+
+.project-card::after {
+  content: '</project>';
+  position: absolute;
+  bottom: 10px;
+  right: -40px;
+  font-family: 'Fira Code', monospace;
+  color: rgba(100, 255, 218, 0.3);
+  font-size: 0.8rem;
+  transition: all 0.4s ease;
+  opacity: 0.3;
+}
+
+.project-card:hover {
+  transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+  border-color: var(--cyan);
+  box-shadow: 
+    0 15px 30px rgba(100, 255, 218, 0.2),
+    0 0 0 1px rgba(100, 255, 218, 0.4),
+    inset 0 0 20px rgba(100, 255, 218, 0.05);
+}
+
+.project-card:hover::before {
+  opacity: 0.8;
+  text-shadow: 0 0 8px var(--cyan);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(100, 255, 218, 0),
+    rgba(100, 255, 218, 0.8),
+    rgba(100, 255, 218, 0)
+  );
+  background-size: 200% 100%;
+  animation: gradientBorder 3s ease infinite;
+}
+
+.project-card:hover::after {
+  right: 10px;
+  opacity: 0.8;
+  text-shadow: 0 0 8px var(--cyan);
+}
+
+.project-title {
+  color: var(--cyan);
+  font-family: 'Fira Code', monospace;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.project-card:hover .project-title {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.project-link {
+  padding: 0.5rem 0.5rem;
+  border: 1px solid var(--cyan);
+  border-radius: 4px;
+  color: var(--cyan);
+  text-decoration: none;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  background: rgba(100, 255, 218, 0.1);
+}
+
+.tech-stack {
+  margin-top: 1rem;
+}
+
+.tech-tag {
+  background: rgba(100, 255, 218, 0.05);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  color: var(--cyan);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .tech-tag {
+  background: rgba(100, 255, 218, 0.1);
+  border-color: rgba(100, 255, 218, 0.4);
+  transform: scale(1.05);
+}
+
+.project-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  background: rgba(100, 255, 218, 0.03);
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--cyan);
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--cyan);
+}
+
+.stat-count {
+  color: #e6f1ff;
+}
+
+/* Add a subtle gradient animation on hover */
+@keyframes gradientBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

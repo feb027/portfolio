@@ -1,0 +1,239 @@
+.experience-container {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--text-primary);
+}
+
+.experience-container h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background: #333;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px;
+}
+
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+.timeline-content {
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  position: relative;
+}
+
+.year {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline::after {
+    left: 31px;
+  }
+  
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+  
+  .timeline-item:nth-child(even) {
+    left: 0;
+  }
+}
+
+.section-title {
+  font-family: 'Fira Code', monospace;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hash {
+  color: var(--cyan);
+}
+
+.brace {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.experience-content {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) 1fr;
+  gap: 2rem;
+  background: var(--bg-dark);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.company-tabs {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--glass-border);
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  padding: 1rem;
+  text-align: left;
+  color: var(--text-secondary);
+  font-family: 'Fira Code', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-button .const {
+  color: #c678dd;
+  font-size: 0.9em;
+  margin-right: 0.5rem;
+}
+
+.tab-button:hover {
+  color: var(--cyan);
+  background: rgba(100, 255, 218, 0.1);
+}
+
+.tab-button.active {
+  color: var(--cyan);
+  background: rgba(100, 255, 218, 0.1);
+}
+
+.tab-button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+.code-block {
+  padding: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.line {
+  margin: 0.5rem 0;
+}
+
+.indent {
+  margin-left: 2rem;
+  color: var(--text-secondary);
+}
+
+.keyword {
+  color: #c678dd;
+}
+
+.string {
+  color: #98c379;
+}
+
+.tech-tag {
+  color: var(--cyan);
+  margin: 0 0.2rem;
+}
+
+.section-end {
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .experience-content {
+    grid-template-columns: 1fr;
+  }
+
+  .company-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .tab-button.active::before {
+    left: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: 2px;
+  }
+}
+
+/* Add terminal-like animations */
+.code-block {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add typing animation for active content */
+.line {
+  opacity: 0;
+  animation: typeLine 0.3s ease forwards;
+}
+
+.line:nth-child(1) { animation-delay: 0.1s; }
+.line:nth-child(2) { animation-delay: 0.2s; }
+.line:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes typeLine {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
