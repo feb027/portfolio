@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Experience.css';
 
 const Experience = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const tabsRef = useRef(null);
 
   const experiences = [
+    {
+      company: "Company Name",
+      title: "Software Developer",
+      period: "2023 - Present",
+      duties: [
+        "Developed and maintained web applications using React.js",
+        "Implemented responsive design principles",
+        "Collaborated with cross-functional teams"
+      ],
+      technologies: ["React", "Node.js", "TypeScript"]
+    },
     {
       company: "Company Name",
       title: "Software Developer",
@@ -29,6 +41,19 @@ const Experience = () => {
     }
   ];
 
+  const scrollToTab = (idx) => {
+    const tabElement = tabsRef.current.children[idx];
+    if (tabElement) {
+      const scrollLeft = tabElement.offsetLeft - (tabsRef.current.clientWidth - tabElement.clientWidth) / 2;
+      tabsRef.current.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+  };
+
+  const handleTabClick = (idx) => {
+    setActiveTab(idx);
+    scrollToTab(idx);
+  };
+
   return (
     <div className="experience-container" data-aos="fade-up">
       <h2 className="section-title">
@@ -37,12 +62,12 @@ const Experience = () => {
       </h2>
 
       <div className="experience-content">
-        <div className="company-tabs">
+        <div className="company-tabs" ref={tabsRef}>
           {experiences.map((exp, idx) => (
             <button
               key={idx}
               className={`tab-button ${activeTab === idx ? 'active' : ''}`}
-              onClick={() => setActiveTab(idx)}
+              onClick={() => handleTabClick(idx)}
             >
               <span className="const">const</span> {exp.company}
             </button>
