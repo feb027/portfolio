@@ -5,6 +5,7 @@ import './Footer.css';
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [asciiArt, setAsciiArt] = useState('default');
+  const [isMobile, setIsMobile] = useState(false);
 
   // Toggle back to top button visibility
   useEffect(() => {
@@ -18,6 +19,16 @@ const Footer = () => {
 
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const scrollToTop = () => {
@@ -56,17 +67,19 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-top">
-          <div className="footer-ascii" 
-               onMouseEnter={() => setAsciiArt('hover')}
-               onMouseLeave={() => setAsciiArt('default')}>
-            {getAsciiArt(asciiArt)}
-          </div>
-          <div className="footer-links">
-            <a href="#about">&lt;About /&gt;</a>
-            <a href="#projects">&lt;Projects /&gt;</a>
-            <a href="#skills">&lt;Skills /&gt;</a>
-            <a href="#contact">&lt;Contact /&gt;</a>
-          </div>
+          {!isMobile && (
+            <div className="footer-ascii" 
+                 onMouseEnter={() => setAsciiArt('hover')}
+                 onMouseLeave={() => setAsciiArt('default')}>
+              {getAsciiArt(asciiArt)}
+            </div>
+          )}
+          <nav className="footer-links">
+            <a href="#about">{isMobile ? 'About' : '<About />'}</a>
+            <a href="#projects">{isMobile ? 'Projects' : '<Projects />'}</a>
+            <a href="#skills">{isMobile ? 'Skills' : '<Skills />'}</a>
+            <a href="#contact">{isMobile ? 'Contact' : '<Contact />'}</a>
+          </nav>
         </div>
         
         <div className="footer-social">
