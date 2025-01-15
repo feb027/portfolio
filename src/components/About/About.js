@@ -8,6 +8,9 @@ const About = () => {
   
   useEffect(() => {
     let index = 0;
+    // Adjust typing speed for mobile devices
+    const typingSpeed = window.innerWidth <= 376 ? 50 : 100;
+    
     const timer = setInterval(() => {
       if (index < fullText.length) {
         setDisplayText(prev => prev + fullText.charAt(index));
@@ -15,7 +18,7 @@ const About = () => {
       } else {
         clearInterval(timer);
       }
-    }, 100);
+    }, typingSpeed);
 
     return () => clearInterval(timer);
   }, []);

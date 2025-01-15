@@ -40,19 +40,18 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
+      if (
+        menuRef.current && 
+        !menuRef.current.contains(event.target) && 
+        !event.target.closest('.menu-btn')
+      ) {
+        closeMenu();
       }
     };
 
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMenuOpen]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     // Initialize AOS
@@ -65,6 +64,20 @@ const Header = () => {
     // Add typing animation when component mounts
     setTimeout(() => setIsTypingDone(true), 1000);
   }, []);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = '';
+  };
+
+  const toggleMenu = () => {
+    if (isMenuOpen) {
+      closeMenu();
+    } else {
+      setIsMenuOpen(true);
+      document.body.style.overflow = 'hidden';
+    }
+  };
 
   const handleLinkClick = (e) => {
     e.preventDefault();
@@ -80,15 +93,9 @@ const Header = () => {
         top: offsetPosition,
         behavior: 'smooth'
       });
-
-      // Add ripple effect on click
-      const ripple = document.createElement('div');
-      ripple.classList.add('nav-ripple');
-      e.currentTarget.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 1000);
     }
     
-    setIsMenuOpen(false);
+    closeMenu();
   };
 
   return (
@@ -102,8 +109,9 @@ const Header = () => {
       <div className="mobile-nav">
         <button 
           className="menu-btn" 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={toggleMenu}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          type="button"
         >
           <div className={`hamburger ${isMenuOpen ? 'active' : ''}`}>
             <span></span>
