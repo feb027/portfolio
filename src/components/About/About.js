@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './About.css';
+import profileImg from '../../assets/photo.JPG';
 
 const About = () => {
   const [displayText, setDisplayText] = useState('');
@@ -74,7 +75,7 @@ const About = () => {
                   ))}
                 </div>
                 <div className="image-container">
-                  <img src="photo.jpg" alt="Your Profile" />
+                  <img src={profileImg} alt="Your Profile" />
                   <div className="image-overlay">
                     <div className="typing-text">
                       Loading developer profile...
