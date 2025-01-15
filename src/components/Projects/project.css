@@ -1,6 +1,6 @@
 .projects {
   padding: 2rem;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 }
@@ -68,23 +68,11 @@ section.projects {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
   position: relative;
   z-index: 2;
-}
-
-.matrix-rain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(180deg, 
-    rgba(100, 255, 218, 0.05) 0%,
-    rgba(100, 255, 218, 0) 100%);
-  pointer-events: none;
-  opacity: 0.3;
 }
 
 
@@ -96,27 +84,81 @@ section.projects {
   
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .terminal-header {
+    padding: 0.5rem;
+  }
+
+  .terminal-title {
+    font-size: 0.9rem;
+  }
+
+  .project-card {
+    padding: 1rem;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+  }
+
+  .tech-stack {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .project-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-link {
+    width: 100%;
+    text-align: center;
   }
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 1rem;
+@media screen and (max-width: 480px) {
+  .projects {
+    padding: 0.75rem;
+  }
+
+  .terminal-buttons {
+    transform: scale(0.8);
+  }
+
+  .project-card {
+    padding: 0.75rem;
+  }
+
+  .project-stats {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    font-size: 0.8rem;
+  }
+
+  .stat-icon {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .project-card {
-  background: rgba(18, 18, 18, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(100, 255, 218, 0.1);
-  padding: 1.5rem;
+  background: var(--bg-dark);
+  border: 1px solid var(--glass-border);
   border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform-style: preserve-3d;
-  perspective: 1000px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
 }
 
 .project-card::before {

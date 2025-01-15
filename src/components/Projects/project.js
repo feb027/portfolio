@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './project.css';
 
 const Projects = () => {
-  
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const projects = [
     {
       title: 'Project 1',
@@ -74,7 +84,7 @@ const Projects = () => {
   ];
 
   return (
-    <section className="projects" data-aos="fade-up" data-aos-delay="100">
+    <section className="projects" data-aos="fade-up" data-aos-delay={isMobile ? "0" : "100"}>
       <div className="terminal-header">
         <div className="terminal-buttons">
           <span className="terminal-button close"></span>
@@ -87,7 +97,7 @@ const Projects = () => {
       <div className="terminal-body">
         <div className="command-line">
           <span className="prompt">$</span>
-          <span className="command">ls -la projects/</span>
+          <span className="command">{isMobile ? 'ls' : 'ls -la'} projects/</span>
         </div>
 
         <div className="projects-grid">
@@ -96,7 +106,7 @@ const Projects = () => {
               key={index} 
               className="project-card"
               data-aos="fade-up"
-              data-aos-delay={100 * (index + 1)}
+              data-aos-delay={isMobile ? "50" : (100 * (index + 1))}
             >
               <h3 className="project-title">{project.title}</h3>
               <p>{project.description}</p>
@@ -151,9 +161,11 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="terminal-decoration">
-          <div className="matrix-rain"></div>
-        </div>
+        {!isMobile && (
+          <div className="terminal-decoration">
+            <div className="matrix-rain"></div>
+          </div>
+        )}
       </div>
     </section>
   );

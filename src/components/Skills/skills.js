@@ -1,11 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import './skills.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faServer, faTools } from '@fortawesome/free-solid-svg-icons';
 
 const Skills = () => {
   const [visibleSkills, setVisibleSkills] = useState([]);
-  
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Add window resize handler
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const skillsData = useMemo(() => ({
     'Frontend Development': {
       icon: faCode,
@@ -34,6 +45,31 @@ const Skills = () => {
     }
   }), []);
 
+  // Optimize skill item render
+  const renderSkillItem = useCallback(({ skill, index, isVisible }) => (
+    <div 
+      key={index} 
+      className="skill-item"
+      style={{
+        animationDelay: isMobile ? '0ms' : `${index * 100}ms`,
+        borderColor: isVisible ? skill.color : 'transparent'
+      }}
+    >
+      <div className="skill-info">
+        <span className="skill-name">{skill.name}</span>
+        <div className="skill-bar">
+          <div 
+            className="skill-progress"
+            style={{ 
+              width: `${skill.level}%`,
+              background: `linear-gradient(90deg, ${skill.color}, ${skill.color}bb)`
+            }}
+          ></div>
+        </div>
+      </div>
+    </div>
+  ), [isMobile]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       const allSkills = Object.values(skillsData)
@@ -45,7 +81,7 @@ const Skills = () => {
   }, [skillsData]);  // Added skillsData to dependency array
 
   return (
-    <div className="skills-container" data-aos="fade-up">
+    <div className="skills-container" data-aos={isMobile ? "fade-up" : "fade-up"}>
       <div className="terminal-header-skills">
         <div className="terminal-buttons-skills">
           <span></span>
@@ -56,11 +92,13 @@ const Skills = () => {
       </div>
       
       <div className="skills-content">
-        <div className="line-numbers">
-          {[...Array(30)].map((_, i) => (
-            <div key={i}>{(i + 1).toString().padStart(2, '0')}</div>
-          ))}
-        </div>
+        {!isMobile && (
+          <div className="line-numbers">
+            {[...Array(30)].map((_, i) => (
+              <div key={i}>{(i + 1).toString().padStart(2, '0')}</div>
+            ))}
+          </div>
+        )}
         
         <div className="skills-main">
           {Object.entries(skillsData).map(([category, { icon, skills }]) => (
@@ -70,29 +108,13 @@ const Skills = () => {
                 <span className="typing-effect">{category}</span>
               </h3>
               <div className="skills-grid">
-                {skills.map((skill, index) => (
-                  <div 
-                    key={index} 
-                    className="skill-item"
-                    style={{
-                      animationDelay: `${index * 100}ms`,
-                      borderColor: visibleSkills.includes(skill) ? skill.color : 'transparent'
-                    }}
-                  >
-                    <div className="skill-info">
-                      <span className="skill-name">{skill.name}</span>
-                      <div className="skill-bar">
-                        <div 
-                          className="skill-progress"
-                          style={{ 
-                            width: `${skill.level}%`,
-                            background: `linear-gradient(90deg, ${skill.color}, ${skill.color}bb)`
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                {skills.map((skill, index) => 
+                  renderSkillItem({
+                    skill,
+                    index,
+                    isVisible: visibleSkills.includes(skill)
+                  })
+                )}
               </div>
             </div>
           ))}
@@ -102,4 +124,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default React.memo(Skills);
